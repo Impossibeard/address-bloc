@@ -2,12 +2,12 @@
 require_relative '../models/address_book'
 
 class MenuController
-    attr_accessor :address_book
-    
+    attr_accessor :address_book, :index
+
     def initialize
         @address_book = AddressBook.new
     end
-    
+
     def main_menu
         # #2
         puts "Main Menu - #{@address_book.entries.count} entries"
@@ -15,13 +15,14 @@ class MenuController
         puts "2 - Create an entry"
         puts "3 - Search for an entry"
         puts "4 - Import entries from a CSV"
-        puts "5 - Exit"
+        puts "5 - View Entry Number n"
+        puts "6 - Exit"
         print "Enter your selection: "
-    
+
         # #3
         selection = gets.to_i
         puts "You picked #{selection}"
-        
+
         # #7
         case selection
         when 1
@@ -41,25 +42,29 @@ class MenuController
             read_csv
             main_menu
         when 5
+            system "clear"
+            entry_n_submenu
+            main_menu
+        when 6
             puts "Good-bye!"
         # #8
             exit(0)
-            # #9
+        # #9
         else
             system "clear"
             puts "Sorry, that is not a valid input"
             main_menu
         end
     end
-    
+
     # #10
     def view_all_entries
-        
+
         # #14
         @address_book.entries.each do |entry|
             system "clear"
             puts entry.to_s
-        
+
         # #15
             entry_submenu(entry)
         end
@@ -67,13 +72,13 @@ class MenuController
         system "clear"
         puts "End of entries"
     end
-    
+
     def create_entry
-    
+
         # #11
         system "clear"
         puts "New AddressBloc Entry"
-        
+
         # #12
         print "Name: "
         name = gets.chomp
@@ -81,34 +86,34 @@ class MenuController
         phone = gets.chomp
         print "Email: "
         email = gets.chomp
-        
+
         # #13
         @address_book.add_entry(name, phone, email)
-        
+
         system "clear"
         puts "New entry created"
     end
-    
+
     def search_entries
     end
-    
+
     def read_csv
     end
-    
+
     def entry_submenu(entry)
         # #16
         puts "n - next entry"
         puts "d - delete entry"
         puts "e - edit this entry"
         puts "m - return to main menu"
-        
+
         # #17
         selection = gets.chomp
-        
+
         case selection
         # #18
         when "n"
-        # #18
+        # #19
         when "d"
         when "e"
         # #20
@@ -121,7 +126,25 @@ class MenuController
             entry_submenu(entry)
         end
     end
-    
+
+    def entry_n_submenu
+        puts "Desired entry number:"
+        selection = gets.chomp.to_i
+        system "clear"
+
+        if selection < @address_book.entries.count
+          puts @address_book.entries[selection]
+          puts "Press enter to return to the main menu"
+          gets.chomp
+          system "clear"
+        else
+          puts "#{selection} is not a valid input"
+          entry_n_submenu
+        end
+      end
+
+
+
 end
 
 #1 Here we include AddressBook using require_relative.
@@ -154,7 +177,7 @@ end
 
 #17 Here chomp removes any trailing whitespace from the string gets returns. This is necessary because "m " or "m\n" won't match "m"
 
-#18 Here, when the user asks to see the next entry, we can do nothing and controll will be returned to view_all_entries.
+#18 Here, when the user asks to see the next entry, we can do nothing and control will be returned to view_all_entries.
 
 #19 Here we'll handle delting and editing in another checkpoint, for now the user will be shown th enext entry.
 
