@@ -59,7 +59,7 @@ RSpec.describe AddressBook do
        # Check the first entry
        entry_one = book.entries[0]
 
-      # #5
+    
       check_entry(entry_one, "Bill", "555-555-4854", "bill@blocmail.com")
      end
 

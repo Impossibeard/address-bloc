@@ -1,4 +1,4 @@
-# #8
+
 require_relative 'entry'
 require 'csv'
 
