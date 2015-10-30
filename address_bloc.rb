@@ -15,4 +15,3 @@ menu.main_menu
 #5 Here we use syste, "clear" to clear the command line.
 
 #6 Here we call main_menu to display the menu.
-
